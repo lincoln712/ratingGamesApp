@@ -1,26 +1,18 @@
 <?php
+	require("Database.php");
+	require("Rate.php");
 	
 	if(isset($_POST['submit'])){
 		if($_POST['rate'] > 0){
-			//echo "saving on the database!";
-			$host = "localhost";
-			$username = "root";
-			$password = "";
-			$dbname = "ratinggames";
+			$db = new Database();
 			
-			$dsn = "mysql: host=".$host.";dbname=".$dbname;
+			$overall = htmlentities($_POST['rate']);
+			$body = htmlentities($_POST['body']);
+			$game_id = htmlentities($_POST['game_id']);
 			
-			$conn = new PDO($dsn,$username,$password);
-				
-			$stmt = $conn->prepare("INSERT INTO rate (overall,body) VALUES(?,?)");
-			if($stmt->execute([$_POST['rate'],$_POST['body']])){
-				header("Location: index.php?rated=true");
-			}else{
-				echo "failed!";
-			}
-			
-			//echo "Okay!";
+			$db->insertRate($db->connect(),new Rate($game_id,$overall,$body));
+
 		}else{
-			echo "Rate lesser than 1";
+			echo "Error!";
 		}
 	}

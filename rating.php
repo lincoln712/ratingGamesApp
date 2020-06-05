@@ -30,10 +30,28 @@
 	</head>
 	
 	<body>
+		<?php
+			
+			require("Database.php");
+			$db = new Database();
+			
+			$id = number_format(trim($_SERVER['QUERY_STRING'],"id="));
+			
+			$game = $db->getSingle($id,$db->connect(),"games");
+		?>
+		<?php 
+			if($_SERVER['QUERY_STRING'] == "rated=false"):?>
+				<p>Fill out at least one star to make your rate accounts!</p>
+			<?endif?>
 		<div class="container">
-			<div class="card">
-				<span>3.5</span>
-			<hr>
+			<div class="card card">	
+				<div class="card-body">
+					<h3 class="card-title"><?php echo $game['title'];?></h3>
+					<img src="">
+					<p class="card-text"><?php echo $game['description'];?></p>	
+					<!--<span>3.5</span>-->
+					<hr>
+				</div>	
 			</div>
 			<div class="stars">
 				<div class="fa fa-star" id="s1"></div>
@@ -44,7 +62,8 @@
 			</div>
 			<div class="form">
 				<form method="post" action="process.php">
-					<input type="hidden" name="rate" value="">
+					<input type="hidden" name="game_id" value="<?php echo $_GET['id'];?>">
+					<input id="rate" type="hidden" name="rate" value="">
 					<textarea name="body" placeholder="Optional"></textarea>
 					<button type="submit" name="submit">Submit</button>
 				</form>
@@ -69,11 +88,8 @@
 										stars[i].classList.remove("checked");
 									}
 									rate = id;
-									document.querySelector("input").value = rate;		
+									document.querySelector("#rate").value = rate;		
 							break;
-							/*document.querySelector("form").addEventListener('submit',function(){
-								document.querySelector("input").value = rate;
-							});*/
 						}
 					}else{
 						switch(id){
@@ -83,12 +99,9 @@
 										stars[i].classList.add("checked");
 									}
 									rate = id+1;
-									document.querySelector("input").value = rate;
+									document.querySelector("#rate").value = rate;
 							break;
 						}
-						/*document.querySelector("form").addEventListener('submit',function(){
-							document.querySelector("input").value = rate;
-						});*/
 					}	
 					console.log(rate);
 				}
