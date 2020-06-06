@@ -5,26 +5,32 @@
 		<style>
 			.card{
 			width:30%;
-			height:20vh;
+			height:100%;
 			border:1px solid #333;
 			margin:0 auto;
 			text-align:center;
 			display:flex;
 			flex-direction: column;
 			}
-			span{
+			/*span{
 				font-size:40px;
 				font-weight:bold;
 				margin: auto;
-			}
+			}*/
 			.container{
 				text-align:center;
 			}
 			.checked{
-				color: yellow;
+				color: goldenrod;
 			}
 			.stars{
 				margin:13px 0;
+			}
+			.message{
+				text-align:center;
+			}
+			img{
+				width:100px;
 			}
 		</style>
 	</head>
@@ -39,17 +45,18 @@
 			
 			$game = $db->getSingle($id,$db->connect(),"games");
 		?>
-		<?php 
-			if($_SERVER['QUERY_STRING'] == "rated=false"):?>
-				<p>Fill out at least one star to make your rate accounts!</p>
+		<?php
+			$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+			
+			if(strpos($url,"rated=false") == true):?>
+				<p class="message">Fill out at least one star to make your rate accounts!</p>
 			<?endif?>
 		<div class="container">
 			<div class="card card">	
 				<div class="card-body">
 					<h3 class="card-title"><?php echo $game['title'];?></h3>
-					<img src="">
+					<img src="img/<?php echo $db->getImage($db->connect(),$_GET['id']);?>">
 					<p class="card-text"><?php echo $game['description'];?></p>	
-					<!--<span>3.5</span>-->
 					<hr>
 				</div>	
 			</div>
@@ -68,8 +75,12 @@
 					<button type="submit" name="submit">Submit</button>
 				</form>
 			</div>
+			<p>Quantity Of Rates: <?php echo $db->getRatingQuantity($db->connect(),$_GET['id']);?></p>
 		</div>
 			<script>
+				setTimeout(function(){
+					document.querySelector(".message").style.display = "none";
+				},2000);
 				let rate = 0;
 			
 				let stars = document.querySelectorAll(".fa-star");

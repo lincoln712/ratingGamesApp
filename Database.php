@@ -21,7 +21,6 @@
 		}
 		
 		public function getAll($conn,$table){
-		
 			$stmt = $conn->prepare("SELECT id,title,description FROM ".$table);
 			
 			$stmt->execute();
@@ -52,7 +51,17 @@
 				echo "error!";
 			}
 		}
+		public function getRatingQuantity($conn,$id){
+			$stmt = $conn->prepare("SELECT COUNT(rate.game_id) as quantity FROM games INNER JOIN rate ON games.id = rate.game_id WHERE games.id = ?");
+			$stmt->execute([$id]);
+			
+			return $stmt->fetch(PDO::FETCH_ASSOC)['quantity'];
+		}
+		public function getImage($conn,$id){
+			$stmt = $conn->prepare("SELECT image FROM games WHERE id = ?");
+			
+			$stmt->execute([$id]);
+			
+			return $stmt->fetch(PDO::FETCH_ASSOC)['image'];
+		}
 	}
-	
-	/*$db = new Database();
-	echo $db->getAverage($db->connect(),1);*/

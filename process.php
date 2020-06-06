@@ -13,6 +13,7 @@
 			$db->insertRate($db->connect(),new Rate($game_id,$overall,$body));
 
 		}else{
-			echo "Error!";
+			//echo "Error!";
+			header("Location: rating.php?id=".$_POST['game_id']."?rated=false");
 		}
 	}
