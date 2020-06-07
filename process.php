@@ -1,4 +1,4 @@
-<?php
+	<?php
 	require("Database.php");
 	require("Rate.php");
 	
@@ -11,9 +11,8 @@
 			$game_id = htmlentities($_POST['game_id']);
 			
 			$db->insertRate($db->connect(),new Rate($game_id,$overall,$body));
-
 		}else{
 			//echo "Error!";
-			header("Location: rating.php?id=".$_POST['game_id']."?rated=false");
+			header("Location:rating.php?id=".$_POST['game_id']."?rated=false");
 		}
 	}

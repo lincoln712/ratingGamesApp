@@ -9,8 +9,6 @@
 				border:1px solid #333;
 				margin:0 auto;
 				text-align:center;
-				display:flex;
-				flex-direction: column;
 			}
 			span{
 				font-size:20px;
@@ -22,9 +20,13 @@
 			}
 			img{
 				width:100px;
+				height:50%;
 			}
 			.flickering{
 				color:goldenrod;
+			}
+			.row{
+				display:flex;
 			}
 		</style>
 	</head>
@@ -38,20 +40,22 @@
 			require("Database.php");
 			
 			$db = new Database();
-			$games = $db->getAll($db->connect(),"games");
+			$games = $db->getAll($db->connect());
 			?>
+			<div class="row">
 			<?php foreach($games as $game):?>
 			<div class="card card">	
 				<div class="card-body">
 					<h3 class="card-title"><?php echo $game['title'];?></h3>
 					<img src="img/<?php echo $db->getImage($db->connect(),$game['id']);?>">
 					<p class="card-text"><?php echo $game['description'];?></p>	
-					<span class="card-text">Rate: <?php echo $db->getAverage($db->connect(),$game['id']);?><i class="fas fa-star flickering"></i></span>
+					<span class="card-text">Rate: <?php echo $game['average'];?><i class="fas fa-star flickering"></i></span>
 					<hr>
 					<a href="rating.php?id=<?php echo $game['id'];?>">click to rate</a>	
 				</div>	
 			</div>
 			<?endforeach?>
+			</div>
 			<script>
 				setTimeout(function(){
 					document.querySelector(".message").style.display = "none";
