@@ -50,7 +50,7 @@
 			
 			if(strpos($url,"rated=false") == true):?>
 				<p class="message">Fill out at least one star to make your rate accounts!</p>
-			<?endif?>
+			<?php endif;?>
 		<div class="container">
 			<div class="card card">	
 				<div class="card-body">

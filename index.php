@@ -54,7 +54,7 @@
 					<a href="rating.php?id=<?php echo $game['id'];?>">click to rate</a>	
 				</div>	
 			</div>
-			<?endforeach?>
+			<?php endforeach;?>
 			</div>
 			<script>
 				setTimeout(function(){
