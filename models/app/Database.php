@@ -43,9 +43,9 @@
 			$stmt = $conn->prepare("INSERT INTO rate (overall,body,game_id) VALUES (?,?,?)");
 				
 			if($stmt->execute([$rate->getOverall(),$rate->getBody(),$rate->getGame_id()]) && $this->updateAverage($conn,$rate->getGame_id())){
-				echo "<script>window.location.href = 'index.php?rated=true';</script>";
+				echo "<script>window.location.href = '../../views/app/index.php?rated=true';</script>";
 			}else{
-				echo "<script>window.location.href = 'rating.php?rated=false';</script>";
+				echo "<script>window.location.href = '../../views/app/rating.php?rated=false';</script>";
 			}
 		}
 		

@@ -1,25 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<script src="https://kit.fontawesome.com/5efe6f7c46.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+		
 		<style>
-			.card{
-			width:30%;
-			height:100%;
-			border:1px solid #333;
-			margin:0 auto;
-			text-align:center;
-			display:flex;
-			flex-direction: column;
-			}
-			/*span{
-				font-size:40px;
-				font-weight:bold;
-				margin: auto;
-			}*/
-			.container{
-				text-align:center;
-			}
 			.checked{
 				color: goldenrod;
 			}
@@ -30,7 +16,17 @@
 				text-align:center;
 			}
 			img{
-				width:100px;
+				max-width:130px;
+			}
+			.form{
+				border:1px solid #333;
+			}
+			.card{
+				border:1px solid #333;
+			}
+			.container{
+				width:50%;
+				border:1px solid #333;
 			}
 		</style>
 	</head>
@@ -38,7 +34,11 @@
 	<body>
 		<?php
 			
-			require("Database.php");
+			if($_SERVER['QUERY_STRING'] == ''){
+				echo "<script>window.location.href='index.php';</script>";
+				exit();
+			}
+			require("../../models/app/Database.php");
 			$db = new Database();
 			
 			$id = number_format(trim($_SERVER['QUERY_STRING'],"id="));
@@ -46,12 +46,13 @@
 			$game = $db->getSingle($id,$db->connect(),"games");
 		?>
 		<?php
+			
 			$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 			
 			if(strpos($url,"rated=false") == true):?>
 				<p class="message">Fill out at least one star to make your rate accounts!</p>
 			<?php endif;?>
-		<div class="container">
+		<div class="container text-center m-auto">
 			<div class="card card">	
 				<div class="card-body">
 					<h3 class="card-title"><?php echo $game['title'];?></h3>
@@ -68,15 +69,16 @@
 				<div class="fa fa-star" id="s5"></div>
 			</div>
 			<div class="form">
-				<form method="post" action="process.php">
+				<form class="form-group mt-2" method="post" action="../../controllers/app/process.php">
 					<input type="hidden" name="game_id" value="<?php echo $_GET['id'];?>">
 					<input id="rate" type="hidden" name="rate" value="">
-					<textarea name="body" placeholder="Optional"></textarea>
-					<button type="submit" name="submit">Submit</button>
+					<textarea class="form-control" name="body" placeholder="Optional"></textarea>
+					<button class="btn btn-primary btn-success mt-2" type="submit" name="submit">Submit</button>
 				</form>
 			</div>
 			<p>Quantity Of Rates: <?php echo $db->getRatingQuantity($db->connect(),$_GET['id']);?></p>
 		</div>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 			<script>
 				setTimeout(function(){
 					document.querySelector(".message").style.display = "none";
