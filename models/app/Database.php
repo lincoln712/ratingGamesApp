@@ -61,7 +61,7 @@
 		
 		public function getRatingQuantity($conn,$id){
 			$stmt = $conn->prepare("SELECT COUNT(rate.game_id) as quantity FROM games INNER JOIN rate ON games.id = rate.game_id WHERE games.id = ?");
-			$stmt->execute([$id]);
+			$stmt->execute([number_format($id,1)]);
 			
 			return $stmt->fetch(PDO::FETCH_ASSOC)['quantity'];
 		}

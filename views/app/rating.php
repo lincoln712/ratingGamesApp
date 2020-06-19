@@ -1,10 +1,17 @@
+<?php
+	session_start();
+	if($_SESSION['authorized'] !== true){
+		header("Location:register");
+		exit();
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<script src="https://kit.fontawesome.com/5efe6f7c46.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-		
+		<title>Rate Game</title>
 		<style>
 			.checked{
 				color: goldenrod;
@@ -28,6 +35,11 @@
 				width:50%;
 				border:1px solid #333;
 			}
+			@media(max-width:576px){
+				.card{
+					width:100%;
+				}
+			}
 		</style>
 	</head>
 	
@@ -35,15 +47,15 @@
 		<?php
 			
 			if($_SERVER['QUERY_STRING'] == ''){
-				echo "<script>window.location.href='index.php';</script>";
+				echo "<script>window.location.href='home';</script>";
 				exit();
 			}
 			require("../../models/app/Database.php");
 			$db = new Database();
 			
-			$id = number_format(trim($_SERVER['QUERY_STRING'],"id="));
+			//$id = number_format(trim($_SERVER['QUERY_STRING'],"id="));
 			
-			$game = $db->getSingle($id,$db->connect(),"games");
+			$game = $db->getSingle($_GET['id'],$db->connect(),"games");
 		?>
 		<?php
 			
@@ -78,7 +90,7 @@
 			</div>
 			<p>Quantity Of Rates: <?php echo $db->getRatingQuantity($db->connect(),$_GET['id']);?></p>
 		</div>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+			<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>-->
 			<script>
 				setTimeout(function(){
 					document.querySelector(".message").style.display = "none";

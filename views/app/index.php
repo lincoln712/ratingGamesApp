@@ -1,7 +1,19 @@
+<?php
+	session_start();
+	
+	if($_SESSION['authorized'] !== true){
+		header("Location:login");
+		exit();
+	}
+	
+	//echo $_SESSION['username'];
+?>
+	
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Home</title>
 		<script src="https://kit.fontawesome.com/5efe6f7c46.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 		<style>
@@ -22,6 +34,9 @@
 	</head>
 	<!--main page-->
 	<body>
+		<form method="post" action="logout">
+			<input name="submit" type="submit" value="Log-Out">
+		</form>
 		<?php
 			if($_SERVER['QUERY_STRING'] == "rated=true"):?>
 				<p class="message">You've successfully rated this game</p>
