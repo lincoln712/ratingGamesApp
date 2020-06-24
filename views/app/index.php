@@ -34,18 +34,20 @@
 	</head>
 	<!--main page-->
 	<body>
+		
 		<form method="post" action="logout">
 			<input name="submit" type="submit" value="Log-Out">
 		</form>
-		<?php
-			if($_SERVER['QUERY_STRING'] == "rated=true"):?>
-				<p class="message">You've successfully rated this game</p>
-			<?endif?>
-			<?php 
-			require("../../models/app/Database.php");
 			
-			$db = new Database();
-			$games = $db->getAll($db->connect());
+			<?php if($_SERVER['QUERY_STRING'] == "rated=true"):?>
+				<p class="message">You've successfully rated this game</p>
+			<?php endif;?>
+
+			<?php 
+				require("../../models/app/Database.php");
+			
+				$db = new Database();
+				$games = $db->getAll($db->connect());
 			?>
 			<div class="container-fluid">
 				<div class="row">

@@ -68,7 +68,7 @@
 			<div class="card card">	
 				<div class="card-body">
 					<h3 class="card-title"><?php echo $game['title'];?></h3>
-					<img src="img/<?php echo $db->getImage($db->connect(),$_GET['id']);?>">
+					<img src="../img/<?php echo $db->getImage($db->connect(),$_GET['id']);?>">
 					<p class="card-text"><?php echo $game['description'];?></p>	
 					<hr>
 				</div>	

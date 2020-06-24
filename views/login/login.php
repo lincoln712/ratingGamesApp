@@ -1,4 +1,5 @@
 <?php
+	
 	session_start();
 	if($_SESSION['authorized'] == true){
 		header("Location:home");
@@ -12,6 +13,13 @@
 		<title>Login</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 		<style>
+			body{
+				display:flex;
+				height:100vh;
+				justify-content:center;
+				align-items:center;
+				flex-direction:column;
+			}
 			.form-group{
 				width:50%;
 				margin:5px auto;
@@ -21,8 +29,9 @@
 			}
 			.card{
 				background-color: rgba(80,150,250,0.5);
-				width:60%;
+				width:50%;
 				margin:0 auto;
+				padding:20px 0;
 			}
 			.message{
 				text-align:center;
@@ -38,7 +47,10 @@
 	<body>
 		<?php 
 			$url = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-			if(strpos($url,"emailorpasswordincorrect=true")):?>
+			if($_SERVER['QUERY_STRING'] !== ''){
+				$newUrl = str_replace("loginfailed/".$_SERVER['QUERY_STRING'],"login",$_SERVER['REQUEST_URI']);
+			}
+			if(strpos($url,"emailorpasswordincorrect=true") == true):?>
 				<p class="message">e-mail or password incorrect!</p>
 			<?php endif;?>
 		<div class="card card text-center">
@@ -49,5 +61,14 @@
 			</form>
 			<fieldset class="form-group"><a class="btn btn-primary btn-info" href="register">Sign-up</a></fieldset>
 		</div>
+		<script>
+				setTimeout(function(){
+				document.querySelectorAll(".message").forEach(function(message){
+					message.style.display = "none";
+					window.location.href = "<?php echo $newUrl;?>";
+				});
+				
+			},2000);
+		</script>
 	</body>
 </html>

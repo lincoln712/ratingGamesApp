@@ -15,7 +15,9 @@
 				echo $e->getMessage();
 			}
 			
-			return $conn;
+			if($conn){
+				return $conn;
+			}
 		}
 		
 		public function insertUser($conn,$user){
@@ -40,8 +42,8 @@
 		
 		public function __construct(){
 			$this->host = "localhost";
-			$this->username = "root";
-			$this->password = "";
+			$this->username = "lincoln";
+			$this->password = "mygreatpower";
 			$this->dbname = "ratinggames";
 		}
 	}
