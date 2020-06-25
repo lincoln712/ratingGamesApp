@@ -3,9 +3,12 @@ RewriteEngine On
 RewriteRule ^$ ./views/login/login.php
 RewriteRule ^login$ ./views/login/login.php [NC]
 RewriteRule ^signin$ ./controllers/login/signin.php
-RewriteRule ^loginfailed/([a-zA-Z0-9]+) ./views/login/login.php?$1
+RewriteRule ^loginfailed/(.*) ./views/login/login.php?$1
 RewriteRule ^home$ ./views/app/index.php
 RewriteRule ^img\/(.*\.(gif|jpg|png|jpeg))?$ ./views/app/img/$1 [QSA,L]
-RewriteRule ^game/([0-9]+) ./views/app/test.php?id=$1
+RewriteRule ^game/([0-9]+) ./views/app/rating.php?id=$1
 RewriteRule ^register$ ./views/login/register.php
 RewriteRule ^logout$ ./controllers/login/logout.php
+RewriteRule ^signup$ ./controllers/login/process.php
+RewriteRule ^registerfailed/(.*) ./views/login/register.php?$1
+RewriteRule ^rateprocess$ ./controllers/app/process.php

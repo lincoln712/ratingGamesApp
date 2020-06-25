@@ -5,9 +5,9 @@
 		$password = htmlentities($_POST['password']);
 		$passwordagain = htmlentities($_POST['passwordagain']);
 		$errors = '';
-		
+
 		if($password !== $passwordagain){
-			$errors = "passworddoesntmatch=true";
+			$errors .= "passworddoesntmatch=true";
 		}
 		if(strlen($password) < 3){
 			$errors .= "passwordistooshort=true";
@@ -23,7 +23,7 @@
 		}
 		
 		if($errors !== ''){
-			header("Location:../../views/login/register.php?".$errors);
+			header("Location:registerfailed/".$errors);
 			exit();
 		}else{
 			//save user on the database

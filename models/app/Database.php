@@ -7,8 +7,8 @@
 		
 		public function __construct(){
 			$this->host = 'localhost';
-			$this->username = 'root';
-			$this->password = '';
+			$this->username = 'lincoln';
+			$this->password = 'mygreatpower';
 			$this->dbname = 'ratinggames';
 			
 		}
@@ -40,12 +40,12 @@
 		}
 		
 		public function insertRate($conn,$rate){
-			$stmt = $conn->prepare("INSERT INTO rate (overall,body,game_id) VALUES (?,?,?)");
+			$stmt = $conn->prepare("INSERT INTO rate (overall,body,game_id,user_id) VALUES (?,?,?,?)");
 				
-			if($stmt->execute([$rate->getOverall(),$rate->getBody(),$rate->getGame_id()]) && $this->updateAverage($conn,$rate->getGame_id())){
-				echo "<script>window.location.href = '../../views/app/index.php?rated=true';</script>";
+			if($stmt->execute([$rate->getOverall(),$rate->getBody(),$rate->getGame_id(),$rate->getUser_id()]) && $this->updateAverage($conn,$rate->getGame_id())){
+				echo "<script>window.location.href = 'home';</script>";
 			}else{
-				echo "<script>window.location.href = '../../views/app/rating.php?rated=false';</script>";
+				echo "<script>window.location.href = 'home';</script>";
 			}
 		}
 		

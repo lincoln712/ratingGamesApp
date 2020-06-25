@@ -5,8 +5,6 @@
 		header("Location:login");
 		exit();
 	}
-	
-	//echo $_SESSION['username'];
 ?>
 	
 <!DOCTYPE html>
@@ -34,18 +32,21 @@
 	</head>
 	<!--main page-->
 	<body>
+		
 		<form method="post" action="logout">
 			<input name="submit" type="submit" value="Log-Out">
 		</form>
-		<?php
-			if($_SERVER['QUERY_STRING'] == "rated=true"):?>
-				<p class="message">You've successfully rated this game</p>
-			<?endif?>
+			<p><?php echo $_SESSION['username'];?></p>
+			<?php if($_SERVER['QUERY_STRING'] == "rated=true"):?>
+				<p class="message">You've successfully rated this game!</p>
+			<?php endif;?>
+
 			<?php 
-			require("../../models/app/Database.php");
+				require("../../models/app/Database.php");
 			
-			$db = new Database();
-			$games = $db->getAll($db->connect());
+				$db = new Database();
+				$games = $db->getAll($db->connect());
+				echo $_SERVER['QUERY_STRING'];
 			?>
 			<div class="container-fluid">
 				<div class="row">
@@ -65,10 +66,12 @@
 					<?php endforeach;?>
 				</div>
 			</div>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-			<script>
+<!-- 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+ -->			<script>
 				setTimeout(function(){
-					document.querySelector(".message").style.display = "none";
+					if(document.querySelector(".message") !== null){
+						document.querySelector(".message").style.display = "none";
+					}
 				},2000);
 			</script>
 	</body>
