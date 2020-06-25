@@ -12,3 +12,5 @@ RewriteRule ^logout$ ./controllers/login/logout.php
 RewriteRule ^signup$ ./controllers/login/process.php
 RewriteRule ^registerfailed/(.*) ./views/login/register.php?$1
 RewriteRule ^rateprocess$ ./controllers/app/process.php
+
+

@@ -46,7 +46,6 @@
 			
 				$db = new Database();
 				$games = $db->getAll($db->connect());
-				echo $_SERVER['QUERY_STRING'];
 			?>
 			<div class="container-fluid">
 				<div class="row">

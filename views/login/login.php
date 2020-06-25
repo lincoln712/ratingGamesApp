@@ -22,7 +22,7 @@
 				height:50vh;
 				margin:0 auto;
 				background-color: rgba(80,150,250,0.5);
-			}
+
 			.form-group{
 				width:50%;
 				margin:0 auto;
@@ -30,7 +30,7 @@
 			input{
 				margin-bottom:5px;
 			}
-	
+
 			.message{
 				text-align:center;
 				text-transform:capitalize;
@@ -62,14 +62,12 @@
 			</form>
 			<fieldset class="form-group"><a class="btn btn-primary btn-info" href="register">Sign-up</a></fieldset>
 		</div>
-		
 		<script>
 				setTimeout(function(){
 				document.querySelectorAll(".message").forEach(function(message){
 					message.style.display = "none";
 					window.location.href = "<?php echo $newUrl;?>";
 				});
-				
 			},3000);
 		</script>
 	</body>
